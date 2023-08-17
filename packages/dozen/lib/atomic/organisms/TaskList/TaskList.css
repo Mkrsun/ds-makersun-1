@@ -1,0 +1,9 @@
+.ds-makersun-dozen-task-list-container {
+  display: flex;
+  flex-direction: column;
+}
+.ds-makersun-dozen-task-list-container > div {
+  margin-top: 1rem;
+}
+
+/*# sourceMappingURL=TaskList.css.map */

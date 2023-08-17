@@ -1,0 +1,8 @@
+.ds-makersun-dozen-task-list-container {
+    display: flex;
+    flex-direction: column;
+    & > div {
+        margin-top: 1rem;
+    }
+    // SCSS Styles
+}
