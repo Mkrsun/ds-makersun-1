@@ -1,5 +1,5 @@
 import './CompleteTasks.scss';
-import CompleteTasksIcon from 'completeTaskIcon.png';
+import CompleteTasksIcon from './completeTaskIcon.png';
 
 export interface CompleteTasksProps {
   className?: string;

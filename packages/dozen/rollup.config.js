@@ -27,7 +27,7 @@ const rollupConfig = {
     json(), // Permite importar archivos JSON
     image(), // Permite importar archivos png, jpg, etc
     postcss({
-      extensions: ['.scss'], // Añade otras extensiones si es necesario
+      extensions: ['.css', '.scss'], // Añade otras extensiones si es necesario
       extract: true,
       minimize: true, // Minimiza el CSS si es para producción
       sourceMap: true, // Si deseas mapas de fuente
@@ -44,23 +44,27 @@ const rollupConfig = {
     copy({
       targets: [
         {
-          src: 'src/atomic/**/*.scss',
-          dest: 'lib',
-        },
-        {
           src: 'src/atomic/**/*.png',
           dest: 'lib',
+          rename: (name, extension, fullPath) => {
+            // Removemos el prefijo "src/" y retornamos la ruta relativa
+            return fullPath.replace(/^src\//, '');
+          },
+        },
+        {
+          src: 'src/atomic/**/*.scss',
+          dest: 'lib',
+          rename: (name, extension, fullPath) => {
+            // Removemos el prefijo "src/" y retornamos la ruta relativa
+            return fullPath.replace(/^src\//, '');
+          },
         },
       ],
     }),
     typescript({
       tsconfig: './tsconfig.json',
     }),
-    commonjs({
-      include: 'node_modules/**',
-    }), // Convierte módulos CommonJS a ES6
     livereload(),
-    terser(), // Minifica tu código para producción
     analyzer(), // Muestra un análisis de tu bundle
   ],
   external: [
