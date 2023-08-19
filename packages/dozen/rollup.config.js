@@ -28,9 +28,7 @@ const rollupConfig = {
     image(), // Permite importar archivos png, jpg, etc
     postcss({
       extensions: ['.css', '.scss'], // Añade otras extensiones si es necesario
-      extract: true,
-      minimize: true, // Minimiza el CSS si es para producción
-      sourceMap: true, // Si deseas mapas de fuente
+      modules: true, // Si deseas usar CSS Modules
       use: [
         [
           'sass',

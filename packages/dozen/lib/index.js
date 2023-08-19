@@ -1,13 +1,46 @@
 
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35730/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import { jsx, jsxs } from 'react/jsx-runtime';
 import React, { useState, useRef, useEffect, Children, useContext, useLayoutEffect } from 'react';
 import { connect, Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$b = ".Pill_ds-makersun-dozen-pill-container__14Ecu{align-items:center;border:2px solid #333;border-radius:100%;display:flex;font-size:11px;font-weight:700;height:21px;justify-content:center;width:21px}";
+styleInject(css_248z$b);
+
 const Pill = ({ className = '', ariaLabel, type = 'normal', value, style, onClick, onMouseEnter, onMouseLeave, }) => {
     return (jsx("div", { className: `ds-makersun-dozen-pill-container ${type}-pill ${className}`, "data-testid": `ds-makersun-dozen-pill`, "aria-label": ariaLabel, tabIndex: 0, onClick: onClick, onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave, style: style, children: value }));
 };
+
+var css_248z$a = ".Task_ds-makersun-dozen-task-container__GGojL{background-color:#fff;border:solid #333;border-radius:7px;border-width:1px 1px 2px;cursor:pointer;display:flex;max-width:350px}.Task_ds-makersun-dozen-task-container__GGojL .Task_left-side__5H6ku{align-items:center;box-sizing:border-box;display:flex;height:100%;justify-content:flex-start;padding:10px 8px;-webkit-user-select:none;user-select:none;width:85%}.Task_ds-makersun-dozen-task-container__GGojL .Task_right-side__u-wr-{align-items:center;display:flex;justify-content:center;width:15%}";
+styleInject(css_248z$a);
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -51,6 +84,9 @@ const hexToRgba = (hex, alpha = 1) => {
 const getDeltaPercentage = (size, delta) => {
     return Math.ceil((delta * 100) / size);
 };
+
+var css_248z$9 = ".SwipeableWrapper_ds-makersun-dozen-swipeable-wrapper-container__TpvNd{align-items:center;cursor:pointer;display:flex;justify-content:center;overflow:hidden;position:relative;transition:background-color .3s;width:-moz-fit-content;width:fit-content}.SwipeableWrapper_ds-makersun-dozen-swipeable-wrapper-container__TpvNd .SwipeableWrapper_overlay__e-1FG{opacity:0}.SwipeableWrapper_ds-makersun-dozen-swipeable-wrapper-container__TpvNd.SwipeableWrapper_swiping__LwCNJ .SwipeableWrapper_overlay__e-1FG{height:100%;left:0;opacity:1;pointer-events:none;position:absolute;top:0;transition:transform .3s ease-in-out,background-color .5s ease-in-out,opacity .1s ease-in-out;width:0}";
+styleInject(css_248z$9);
 
 const defaultValues = {
     onHoverColor: '#2869261',
@@ -286,13 +322,22 @@ function MdDone (props) {
   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24"},"child":[{"tag":"path","attr":{"fill":"none","d":"M0 0h24v24H0z"}},{"tag":"path","attr":{"d":"M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"}}]})(props);
 }
 
+var css_248z$8 = ".Done_ds-makersun-dozen-done-container__41-vu{align-items:center;background-color:#3be146;border-radius:100%;display:flex;height:24px;justify-content:center;width:24px}";
+styleInject(css_248z$8);
+
 const Done = ({ className = '', ariaLabel = '', size, color, fontSize, }) => {
     return (jsx("div", { className: `ds-makersun-dozen-done-container ${className}`, "data-testid": `ds-makersun-dozen-done`, "aria-label": ariaLabel !== null && ariaLabel !== void 0 ? ariaLabel : 'Done Icon', children: jsx(MdDone, { width: size !== null && size !== void 0 ? size : 18, height: size !== null && size !== void 0 ? size : 18, color: color !== null && color !== void 0 ? color : 'white', fontSize: fontSize !== null && fontSize !== void 0 ? fontSize : '1rem' }) }));
 };
 
+var css_248z$7 = ".TaskHome_ds-makersun-dozen-task-container__NrzAj{background-color:#fff!important;margin-bottom:1rem;min-width:300px}";
+styleInject(css_248z$7);
+
 const TaskHome = ({ label, onSwipeComplete, onDragStart, onDragOver, onDrop, onDragEnd, gesturesEnabled, isCompleted, }) => {
     return (jsx(Task, { className: "ds-makersun-dozen-task-home-container", label: label !== null && label !== void 0 ? label : '', rightIcon: jsx(MdWork, { width: 18, height: 18 }), rightIconComplete: jsx(Done, {}), overlayColor: "#B6EBBA", completeOverlayColor: "#3BE146", onHoverColor: "#E9E8E8", onSwipeComplete: onSwipeComplete, onDragStart: onDragStart, onDragOver: onDragOver, onDrop: onDrop, onDragEnd: onDragEnd, gesturesEnabled: gesturesEnabled, isCompleted: isCompleted }));
 };
+
+var css_248z$6 = ".Greeting_ds-makersun-dozen-greeting-container__MhLdx{color:#333;display:flex;font-size:24px;font-style:normal;font-weight:700;line-height:normal}";
+styleInject(css_248z$6);
 
 const Greeting = ({ className = '', ariaLabel, label, width, height, }) => {
     return (jsx("div", { className: `ds-makersun-dozen-greeting-container ${className}`, "data-testid": `ds-makersun-dozen-greeting`, "aria-label": ariaLabel, tabIndex: 0, style: {
@@ -301,10 +346,16 @@ const Greeting = ({ className = '', ariaLabel, label, width, height, }) => {
         }, children: label }));
 };
 
+var css_248z$5 = ".Tab_ds-makersun-dozen-tab-container__uXoHB{display:flex}";
+styleInject(css_248z$5);
+
 const Tab = (_a) => {
     var { className = '', ariaLabel, children } = _a, props = __rest$1(_a, ["className", "ariaLabel", "children"]);
     return (jsx("div", Object.assign({ className: `ds-makersun-dozen-tab-container ${className}`, "data-testid": `ds-makersun-dozen-tab`, "aria-label": ariaLabel, tabIndex: 0 }, props, { children: children })));
 };
+
+var css_248z$4 = ".TabOption_ds-makersun-dozen-tab-option-container__MS--L{color:#bcbcbc;cursor:pointer;font-size:16px;font-style:normal;font-weight:700;line-height:normal;margin-left:12px}.TabOption_ds-makersun-dozen-tab-option-container__MS--L.TabOption_active__CNPGY{color:#333;text-decoration-line:underline}";
+styleInject(css_248z$4);
 
 const TabOption = ({ className = '', ariaLabel, label, isActive, onClick, }) => {
     return (jsx("div", { className: `ds-makersun-dozen-tab-option-container ${className} ${isActive ? 'active' : ''}`, "data-testid": `ds-makersun-dozen-tab-option`, "aria-label": ariaLabel, tabIndex: 0, onClick: onClick, children: label }));
@@ -323,6 +374,9 @@ const useGetPercentageWidth = ({ containerRef, percentage = 100, }) => {
         percentageWidth,
     };
 };
+
+var css_248z$3 = ".Tabs_ds-makersun-dozen-tabs-container__z4ak9{display:flex;flex-direction:column;height:100%;overflow:hidden;position:relative;width:100%}.Tabs_ds-makersun-dozen-tabs-container__z4ak9 .Tabs_ds-makersun-dozen-tabs-header-container__NkFZz{display:flex}.Tabs_ds-makersun-dozen-tabs-container__z4ak9 .Tabs_ds-makersun-dozen-tabs-content-container__dKnPu{display:flex;position:relative;transition:transform .3s ease-in-out;width:100%}.Tabs_ds-makersun-dozen-tabs-container__z4ak9 .Tabs_ds-makersun-dozen-tabs-content-container__dKnPu>div{align-items:flex-start;display:flex;flex:0 0 100%;height:100vh;justify-content:center;padding-top:2rem;width:100%}";
+styleInject(css_248z$3);
 
 const Tabs = ({ className = '', ariaLabel, options, children, }) => {
     const [selectedTabOptionIndex, setSelectedTabOption] = useState(0);
@@ -9789,6 +9843,9 @@ var ConnectedDroppable = connect(makeMapStateToProps$1, mapDispatchToProps$1, nu
 })(Droppable);
 ConnectedDroppable.defaultProps = defaultProps;
 
+var css_248z$2 = ".TaskList_ds-makersun-dozen-task-list-container__T4QkO{display:flex;flex-direction:column}.TaskList_ds-makersun-dozen-task-list-container__T4QkO>div{margin-top:1rem}.TaskList_ds-makersun-dozen-task-list-container__T4QkO>div.TaskList_is-dragging__RC25z,.TaskList_order-number-relative__rEg0I{position:absolute}.TaskList_order-number-relative__rEg0I .TaskList_order-number-absolute__gmAqW{left:-20px;position:absolute}";
+styleInject(css_248z$2);
+
 const TaskList = ({ className = '', ariaLabel, tasks, state = 'complete-tasks', }) => {
     const [orderedTasks, setOrderedTasks] = useState(tasks);
     const refs = useRef({}).current;
@@ -9819,11 +9876,17 @@ const TaskList = ({ className = '', ariaLabel, tasks, state = 'complete-tasks', 
                         } }, task.id))), providedDroppable.placeholder] }))) }) }));
 };
 
+var css_248z$1 = ".MoveHand_ds-makersun-dozen-move-hand-container__74KO0{display:flex}";
+styleInject(css_248z$1);
+
 var img$1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMBSURBVHgBrVbPbxJBFP5mlsJCgwWj5UeiQmLUpB5svJkY8S+oNy8a9ejFton3QuJdDt715MWY2IO3mrR/AT17KGhSaIutILA/mP3hG7JFa3e3mPZLhp0d5r3vffMeb2AIQb1eTyUSiUXXdUv0WvAGGGMdWtuk6So9P+VyuUaQD+a32Gq1CuTkLU1LmAC0953jOBU/Iv7vwt7e3iLnvDapcwlS8ZRIajs7O0vHyP9+2d3dXaHNZZwCRFTOZDKVYwQycpJZxdlgOZvNVscE8szlsVD0qTArrm8h2XmP7oUXwNS5sK2yCOZlTkY5IOcrYc6jB2tI1l9C0b4ipmhg7S+IH3wEswdBJimvSMBl9DJJIdGA6XVEIwIw25RQm5R8Q9KpQfm1GWZWkmXOiekBToDtKlQqFkXcIwIL3NXh2gI2nw61U1V1SR7RwkkEYCqNCDH1iUBWigXHNkhBDeearwDH9Ddj7F6EPm650ioEji2/d8BEF1BM8CmVFDCa1mneDzMt8KDkMlf8IaBic1kUdrcxUuCKPuyhBh7hEHyWMhkLJIj4Rvz9M9T2B0Qzcxjkn8MxKMpkCqniDDEnkBAGRG8abq8FoV5GGCRBA14TGxPECzhoaYjvbwBbVClmB+JKHupMCoz3wRSKOBYlXQp6yqUw/x3uERxlvTiHxP03MKPXYPV+0FEocAQl1hjANnXY+k8qqj6M/W3YU9kwgk2Zgw2/b/j0LOJ3KrAsOnvh0JkLCIOOZjCgoY2ew34XLJ4JI1jlVKuB/YdFk4hcfzRyPtR0WLoBi0gs08RQEpgO+Pmbgd7lXcHT6XSH5utBm2I3HsJJ36ZodVJgQpikhMiMngbl6mOKQvEPju4I2Ysma3aODXt7Dby9QYb0yuJA5i54rhTkvEOdeX5MINFsNpeI5DXOBuN2Pb7R8vl8lRRUcEpIH4fOjxBIkKQySVuWEvGf8GyWpY8j636bZU7oUSajJ5gM6xT5M79Ln4VZef8uZDtf8JriYRE05JC/IcMwqsViMVDxb3v4cllrOMNRAAAAAElFTkSuQmCC";
 
 const MoveHand = ({ className = '', ariaLabel }) => {
     return (jsx("div", { className: `ds-makersun-dozen-move-hand-container ${className}`, "data-testid": `ds-makersun-dozen-move-hand`, "aria-label": ariaLabel, tabIndex: 0, children: jsx("img", { src: img$1, alt: "move hand icon" }) }));
 };
+
+var css_248z = ".CompleteTasks_ds-makersun-dozen-complete-tasks-container__byoxO{display:flex}";
+styleInject(css_248z);
 
 var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANDSURBVHgBtVZbTxNBFP52W6GWa8OloCa25abECyokCFFR3zQKLxrkRfwBBPCNCBYSo4mJgfgqBp4I8ZLIow8ioEYNMRBBbooFYtpS2tqCYAu068yk22zbpW2MfsnszpyZ831zZmbnLIcoMJlM6Wq1ulEQhCrS1AUKOI5zEds4qQ6Q94vc3NyFnTg4OaPFYtERkh5SrUIcIGN7/X5/h5wQH26w2WyNPM+PyZELArAtRM6JRFFPRMasVmtTVIHl5WUjmUkXcUiXI9/w83D+8sDrkw2c+nRSDqmRk86ckovtvvZbcK/YggNr2u4iJVMLv18Az3MYfd6HmZFXwf7Si5dQduGy2GzOyclhXEr6oGtOZt0uVV76MoG9BQU4feUaa2u1WigSVcH+kooKGArz8XttDS97umEzmaTuRsLJNp8JkDU3yi1LTcNN5JcchxyyS8uC9cm3w+Hd6YFDcpYPzL4e/x5V9JgriVJNrJFT84vweDdDbEqlAkcKDVH9VCpVE12iasRAcd5+/A3I5M/w5FGC/wedUm5zw7HidGPL5wu2N/0ejDgGMbj4GnaPA8pSH3S8gHKvAxmJGSECPOIAXe/diQmsrPlcuP2pDU9mnzFyiu1kBb6prbg/+QAOryPElwosxBLQpCYHS/fcIzjDSCgOZx6Cndgff+2Vml1xCYj47jZh2jEdYa87WIt7p+4wkdnVOcy658SucZ7swXBM4h8WdlRH5z+zdtKuJLSWt0CrzmbkdQdq0Tfdjwn7JOu3e+2i64CSnNUur9drjCZg2JfL3ualeWARSCYChjQ9Hp7rZGKUvG+mP8KP5gpeo9G4SH0IcaBMe4K9lzdsaHnTivWtdVnyorQiliOCdxFRukFzQPiRHXnaD6fVEuJcvLoHU6lmJtIw2MxEpKjMOoksVaaLJiDaZgJUyWw2dxCRTnFgQVk5lmZnWJFClchBcz4BPzVbEeR5KQbU6q/SCQezW0jmIBdfOwkt6n6IeGd7jw/2j/AJPqiVahzTHEVldoVI3i6Oi0hNJJImhUJhjOcLlyLwI9AhJpodBQKR6MiLRnMd8WGI7qNc0ueieQX+Luh1Xk0vRUlUC7TQb8jj8XTp9XrXThx/ALVtb+UfQf0xAAAAAElFTkSuQmCC";
 
