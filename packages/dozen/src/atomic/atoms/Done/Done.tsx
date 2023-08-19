@@ -1,7 +1,6 @@
-import React from 'react';
 import { MdDone as DoneIcon } from 'react-icons/md';
 
-import './Done.css';
+import './Done.scss';
 
 export interface DoneProps {
   className?: string;

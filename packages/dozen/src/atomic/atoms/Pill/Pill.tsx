@@ -1,11 +1,12 @@
-import React, { MouseEventHandler, ReactNode } from 'react';
-import './Pill.css';
+import { CSSProperties, MouseEventHandler, ReactNode } from 'react';
+import './Pill.scss';
 
 export interface PillProps {
   className?: string;
   ariaLabel?: string;
   type?: 'mini'; // TODO: | normal
   value?: number | string | ReactNode;
+  style?: CSSProperties;
   onClick?: MouseEventHandler<HTMLDivElement>;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
@@ -16,6 +17,7 @@ const Pill: React.FC<PillProps> = ({
   ariaLabel,
   type = 'normal',
   value,
+  style,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -29,6 +31,7 @@ const Pill: React.FC<PillProps> = ({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      style={style}
     >
       {value}
     </div>

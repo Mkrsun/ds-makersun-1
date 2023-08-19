@@ -1,15 +1,11 @@
-import React from 'react';
-
 export interface PlaceholderProps {
-    id?: string | number
-    className?: string
+  id?: string | number;
+  className?: string;
 }
 
-const Placeholder: React.FC<PlaceholderProps> = ({
-  className=''
-}) => {
+const Placeholder: React.FC<PlaceholderProps> = ({ className = '' }) => {
   return (
-    <div 
+    <div
       className={`ds-makersun-manaier-placeholder-container ${className}`}
       data-testid={`ds-makersun-manaier-placeholder`}
     >

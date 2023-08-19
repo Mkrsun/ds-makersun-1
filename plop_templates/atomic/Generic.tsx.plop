@@ -1,5 +1,5 @@
-import React from 'react';
-import './{{properCase name}}.css';
+;
+import './{{properCase name}}.scss';
 
 
 export interface {{properCase name}}Props {

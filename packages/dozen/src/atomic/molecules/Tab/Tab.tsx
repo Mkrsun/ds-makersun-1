@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import './Tab.css';
+import { ReactNode } from 'react';
+import './Tab.scss';
 
 export interface TabProps {
   className?: string;

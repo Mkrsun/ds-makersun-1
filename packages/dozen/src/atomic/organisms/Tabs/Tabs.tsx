@@ -1,8 +1,8 @@
-import React, { ReactNode, useState, useRef } from 'react';
+import { ReactNode, useState, useRef, useEffect, Children } from 'react';
 import Tab from '../../molecules/Tab';
 import TabOption from '../../atoms/TabOption';
 import { useGetPercentageWidth } from '../../../hooks/useGetPercentageWidth';
-import './Tabs.css';
+import './Tabs.scss';
 
 export interface TabsProps {
   className?: string;
@@ -25,12 +25,13 @@ const Tabs: React.FC<TabsProps> = ({
     percentage: 20,
   });
   const [isWaiting, setIsWaiting] = useState(false);
+  const containerRef = useRef(null);
 
   const handlePrev = () => {
     setSelectedTabOption((prevIndex) => Math.max(prevIndex - 1, 0));
   };
   const handleNext = () => {
-    const childrenArray = React.Children.toArray(children);
+    const childrenArray = Children.toArray(children);
     setSelectedTabOption((prevIndex) =>
       Math.min(prevIndex + 1, childrenArray.length - 1)
     );
@@ -91,12 +92,28 @@ const Tabs: React.FC<TabsProps> = ({
     setTouchStartX(0);
   };
 
+  useEffect(() => {
+    const div = tabsContainerRef.current;
+    if (div) {
+      const touchMoveListener = (event: TouchEvent) => {
+        event.preventDefault();
+      };
+      div.addEventListener('touchmove', touchMoveListener, {
+        passive: false,
+      });
+      return () => {
+        div.removeEventListener('touchmove', touchMoveListener);
+      };
+    }
+  }, [tabsContainerRef]);
+
   return (
     <div
       className={`ds-makersun-dozen-tabs-container ${className}`}
       data-testid={`ds-makersun-dozen-tabs`}
       aria-label={ariaLabel}
       tabIndex={0}
+      ref={containerRef}
     >
       {/* Tabs Header Container */}
       <div className="ds-makersun-dozen-tabs-header-container">
@@ -116,7 +133,7 @@ const Tabs: React.FC<TabsProps> = ({
         className="ds-makersun-dozen-tabs-content-container"
         style={{ transform: `translateX(-${selectedTabOptionIndex * 100}%)` }}
       >
-        {React.Children.map(children, (child, index) => (
+        {Children.map(children, (child, index) => (
           <Tab
             key={index}
             onMouseDown={handleMouseDown}

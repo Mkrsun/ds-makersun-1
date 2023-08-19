@@ -1,5 +1,4 @@
-import React from 'react';
-import './Greeting.css';
+import './Greeting.scss';
 
 export interface GreetingProps {
   className?: string;

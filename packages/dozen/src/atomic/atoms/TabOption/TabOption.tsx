@@ -1,5 +1,4 @@
-import React, { MouseEventHandler } from 'react';
-import './TabOption.css';
+import './TabOption.scss';
 
 export interface TabOptionProps {
   className?: string;

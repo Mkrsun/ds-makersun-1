@@ -1,4 +1,4 @@
-import React, {
+import {
   ReactNode,
   MouseEventHandler,
   TouchEventHandler,
@@ -7,7 +7,7 @@ import React, {
   useRef,
 } from 'react';
 import { hexToRgba, getDeltaPercentage } from './utils';
-import './SwipeableWrapper.css';
+import './SwipeableWrapper.scss';
 
 const defaultValues = {
   onHoverColor: '#2869261',
@@ -20,12 +20,15 @@ export interface SwipeableWrapperProps {
   completeOverlayColor?: string;
   onHoverColor?: string;
   children: ReactNode;
+  gesturesEnabled?: boolean;
+  isCompleted?: boolean;
   onTouchStart?: TouchEventHandler<HTMLDivElement>;
   onTouchEnd?: TouchEventHandler<HTMLDivElement>;
   onMouseDown?: MouseEventHandler<HTMLDivElement>;
   onMouseUp?: MouseEventHandler<HTMLDivElement>;
   onSwipeComplete?: () => void;
   setIsComplete?: (isCompleted: boolean) => void;
+  setShowDoneIcon?: (show: boolean) => void;
   [key: string]: any; // Índice de propiedades dinámicas
 }
 
@@ -36,12 +39,15 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   completeOverlayColor,
   onHoverColor,
   children,
+  gesturesEnabled,
+  isCompleted,
   onTouchStart,
   onTouchEnd,
   onMouseDown,
   onMouseUp,
   onSwipeComplete,
   setIsComplete,
+  setShowDoneIcon,
   ...props
 }) => {
   const [startX, setStartX] = useState<number | null>(null);
@@ -59,7 +65,7 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   };
 
   const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (startX !== null) {
+    if (startX !== null && gesturesEnabled) {
       const currentX = event.touches[0].clientX;
       const deltaX = currentX - startX;
       setSwipeDistance(deltaX);
@@ -67,8 +73,8 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   };
 
   const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (event) => {
-    onTouchEnd && onTouchEnd(event);
-    if (startX !== null && halfWidth) {
+    onTouchEnd && gesturesEnabled && onTouchEnd(event);
+    if (startX !== null && halfWidth && gesturesEnabled) {
       if (Math.abs(swipeDistance) > halfWidth) {
         onSwipeComplete && onSwipeComplete();
       }
@@ -79,12 +85,14 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   };
 
   const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    onMouseDown && onMouseDown(event);
-    setStartX(event.clientX);
+    if (gesturesEnabled) {
+      onMouseDown && onMouseDown(event);
+      setStartX(event.clientX);
+    }
   };
 
   const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    if (startX !== null) {
+    if (startX !== null && gesturesEnabled) {
       const currentX = event.clientX;
       const deltaX = currentX - startX;
       setSwipeDistance(deltaX);
@@ -92,14 +100,16 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   };
 
   const handleMouseUp: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    onMouseUp && onMouseUp(event);
-    if (startX !== null && halfWidth) {
-      if (Math.abs(swipeDistance) > halfWidth) {
-        onSwipeComplete && onSwipeComplete();
-      }
+    if (gesturesEnabled) {
+      onMouseUp && onMouseUp(event);
+      if (startX !== null && halfWidth) {
+        if (Math.abs(swipeDistance) > halfWidth) {
+          onSwipeComplete && onSwipeComplete();
+        }
 
-      setStartX(null);
-      setSwipeDistance(0);
+        setStartX(null);
+        setSwipeDistance(0);
+      }
     }
   };
 
@@ -127,24 +137,27 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
   };
 
   useEffect(() => {
-    if (halfWidth && Math.abs(swipeDistance) > halfWidth) {
+    if (halfWidth && Math.abs(swipeDistance) > halfWidth && gesturesEnabled) {
       // Set complete overlay color
       setCurrentOverlayColor(
         completeOverlayColor ? hexToRgba(completeOverlayColor, 1) : 'green'
       );
-      setIsComplete && setIsComplete(true);
+      setShowDoneIcon && setShowDoneIcon(true);
     } else {
       setCurrentOverlayColor(
         overlayColor ? hexToRgba(overlayColor) : hexToRgba('#B8FFB5')
       );
-      setIsComplete && setIsComplete(false);
+      setShowDoneIcon && setShowDoneIcon(false);
     }
   }, [
     swipeDistance,
     halfWidth,
     completeOverlayColor,
     overlayColor,
+    gesturesEnabled,
+    isCompleted,
     setIsComplete,
+    setShowDoneIcon,
   ]);
 
   useEffect(() => {
@@ -152,6 +165,19 @@ const SwipeableWrapper: React.FC<SwipeableWrapperProps> = ({
       setHalfWidth(Math.ceil(containerRef.current.offsetWidth / 10) * 4);
     }
   }, [containerRef]);
+
+  useEffect(() => {
+    const div = containerRef.current;
+    if (div && gesturesEnabled) {
+      const touchMoveListener = (event: TouchEvent) => {
+        event.preventDefault();
+      };
+      div.addEventListener('touchmove', touchMoveListener, { passive: false });
+      return () => {
+        div.removeEventListener('touchmove', touchMoveListener);
+      };
+    }
+  }, [containerRef, gesturesEnabled]);
 
   return (
     <div

@@ -1,19 +1,29 @@
-import React from 'react';
+import { DragEventHandler } from 'react';
 import { MdWork as WorkIcon } from 'react-icons/md';
 import Task from '../Task';
 import Done from '../../atoms/Done';
-import './TaskHome.css';
+import './TaskHome.scss';
 
 export interface TaskHomeProps {
   label?: string;
   onSwipeComplete?: () => void;
-  [key: string]: any; // Índice de propiedades dinámicas
+  onDragStart?: DragEventHandler;
+  onDragOver?: DragEventHandler;
+  onDrop?: DragEventHandler;
+  onDragEnd?: DragEventHandler;
+  gesturesEnabled?: boolean;
+  isCompleted?: boolean;
 }
 
 const TaskHome: React.FC<TaskHomeProps> = ({
   label,
   onSwipeComplete,
-  ...props
+  onDragStart,
+  onDragOver,
+  onDrop,
+  onDragEnd,
+  gesturesEnabled,
+  isCompleted,
 }) => {
   return (
     <Task
@@ -24,10 +34,13 @@ const TaskHome: React.FC<TaskHomeProps> = ({
       overlayColor="#B6EBBA"
       completeOverlayColor="#3BE146"
       onHoverColor="#E9E8E8"
-      onSwipeComplete={() => {
-        onSwipeComplete && onSwipeComplete();
-      }}
-      {...props}
+      onSwipeComplete={onSwipeComplete}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
+      gesturesEnabled={gesturesEnabled}
+      isCompleted={isCompleted}
     />
   );
 };

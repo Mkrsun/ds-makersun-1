@@ -1,3 +1,4 @@
 node_modules/
 packages/dozen/lib
 packages/manaier/lib
+.DS_Store

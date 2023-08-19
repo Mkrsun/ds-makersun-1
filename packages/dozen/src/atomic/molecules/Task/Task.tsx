@@ -1,5 +1,11 @@
-import React, { ReactNode, MouseEventHandler, useState } from 'react';
-import './Task.css';
+import {
+  ReactNode,
+  MouseEventHandler,
+  DragEventHandler,
+  useState,
+  useEffect,
+} from 'react';
+import './Task.scss';
 
 import SwipeableWrapper from '../SwipeableWrapper';
 
@@ -13,10 +19,14 @@ export interface TaskProps {
   completeOverlayColor?: string;
   onHoverColor?: string;
   isCompleted?: boolean;
+  gesturesEnabled?: boolean;
   onSwipeComplete?: () => void;
   handleIsComplete?: () => void;
   onClick?: MouseEventHandler<HTMLDivElement>;
-  [key: string]: any; // Índice de propiedades dinámicas
+  onDragStart?: DragEventHandler;
+  onDragOver?: DragEventHandler;
+  onDrop?: DragEventHandler;
+  onDragEnd?: DragEventHandler;
 }
 
 const Task: React.FC<TaskProps> = ({
@@ -29,14 +39,45 @@ const Task: React.FC<TaskProps> = ({
   completeOverlayColor,
   onHoverColor,
   isCompleted,
+  gesturesEnabled,
   onSwipeComplete,
   handleIsComplete,
   onClick,
-  ...props
 }) => {
   const [isCompletedLocal, setIsCompletedLocal] = useState(
     isCompleted ?? false
   );
+
+  const [showDoneIcon, setShowDoneIcon] = useState(isCompleted ?? false);
+
+  const handleOnSwipeComplete = () => {
+    if (gesturesEnabled) {
+      onSwipeComplete && onSwipeComplete();
+      console.log('on swipe complete babyy');
+      setIsCompletedLocal(true);
+    }
+  };
+
+  const handleSetIsComplete = (isCompleted: boolean) => {
+    if (gesturesEnabled) {
+      handleIsComplete && handleIsComplete();
+      setIsCompletedLocal(isCompleted);
+    }
+  };
+
+  const handleOnClickRightSide = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (onClick && gesturesEnabled) {
+      return onClick(event);
+    } else {
+      return () => {};
+    }
+  };
+
+  useEffect(() => {
+    console.log({ isCompletedLocal, isCompleted, rightIconComplete });
+  }, [isCompletedLocal, isCompleted, rightIconComplete]);
 
   return (
     <SwipeableWrapper
@@ -46,19 +87,17 @@ const Task: React.FC<TaskProps> = ({
       overlayColor={overlayColor ?? '#B8FFB5'}
       completeOverlayColor={completeOverlayColor ?? 'green'}
       onHoverColor={onHoverColor ?? '#2869261'}
-      onSwipeComplete={() => {
-        onSwipeComplete && onSwipeComplete();
-        setIsCompletedLocal(true);
-      }}
-      setIsComplete={(isCompleted: boolean) => {
-        handleIsComplete && handleIsComplete();
-        setIsCompletedLocal(isCompleted);
-      }}
-      {...props}
+      onSwipeComplete={handleOnSwipeComplete}
+      setIsComplete={handleSetIsComplete}
+      setShowDoneIcon={setShowDoneIcon}
+      isCompleted={isCompletedLocal}
+      gesturesEnabled={gesturesEnabled && !isCompletedLocal}
     >
       <div className="left-side">{label}</div>
-      <div onClick={onClick ?? (() => {})} className="right-side">
-        {isCompletedLocal && rightIconComplete ? rightIconComplete : rightIcon}
+      <div onClick={handleOnClickRightSide} className="right-side">
+        {(isCompletedLocal || showDoneIcon) && rightIconComplete
+          ? rightIconComplete
+          : rightIcon}
       </div>
     </SwipeableWrapper>
   );
