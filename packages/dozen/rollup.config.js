@@ -16,26 +16,10 @@ import copy from 'rollup-plugin-copy';
 
 const rollupConfig = {
   input: 'src/index.ts', // tu punto de entrada
-  output: [
-    {
-      file: 'lib/index.cjs.js', // salida para CommonJS
-      format: 'cjs',
-    },
-    {
-      file: 'lib/index.esm.js', // salida para ES Modules
-      format: 'es',
-    },
-    {
-      file: 'lib/index.umd.js', // salida para UMD (Universal Module Definition)
-      format: 'umd',
-      name: 'dozen', // nombre global para UMD (reemplaza con el nombre de tu librería)
-    },
-    {
-      file: 'lib/index.iife.js', // salida para IIFE (Immediately Invoked Function Expression)
-      format: 'iife',
-      name: 'dozen', // nombre global para IIFE (reemplaza con el nombre de tu librería)
-    },
-  ],
+  output: {
+    dir: 'lib',
+    format: 'es', // o 'es' si prefieres ES modules
+  },
   plugins: [
     peerDepsExternal(),
     resolve(), // Ayuda a Rollup a encontrar módulos externos
@@ -58,7 +42,16 @@ const rollupConfig = {
       plugins: [postcssPresetEnv(), autoprefixer(), cssnano()], // Puedes agregar plugins de PostCSS aquí si los necesitas
     }),
     copy({
-      targets: [{ src: 'src/atomic/**/*', dest: 'lib/atomic' }],
+      targets: [
+        {
+          src: 'src/atomic/**/*.scss',
+          dest: 'lib',
+        },
+        {
+          src: 'src/atomic/**/*.png',
+          dest: 'lib',
+        },
+      ],
     }),
     typescript({
       tsconfig: './tsconfig.json',

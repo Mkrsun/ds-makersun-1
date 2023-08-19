@@ -32,6 +32,7 @@
     "format": "prettier --write \"src/**/*.{js,ts,tsx}\"",
     "lint": "lint-staged",
     "start": "react-app-rewired  -r tsconfig-paths/register start",
+    "start:dev": "PORT=4000 yarn workspace @ds-makersun/playground start",
     "dev": "concurrently \"yarn workspace @ds-makersun/dozen dev\" \"yarn workspace @ds-makersun/manaier dev\" \"PORT=4000 yarn workspace @ds-makersun/playground start\"",
     "build": "react-app-rewired build",
     "test": "jest",
