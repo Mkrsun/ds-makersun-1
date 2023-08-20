@@ -4,16 +4,9 @@ import MoveHandIcon from './HandMoveIcon.png';
 export interface MoveHandProps {
   className?: string;
   ariaLabel?: string;
-  width?: number;
-  height?: number;
 }
 
-const MoveHand: React.FC<MoveHandProps> = ({
-  className = '',
-  ariaLabel,
-  width = 24,
-  height = 24,
-}) => {
+const MoveHand: React.FC<MoveHandProps> = ({ className = '', ariaLabel }) => {
   return (
     <div
       className={`ds-makersun-dozen-move-hand-container ${className}`}
@@ -21,7 +14,7 @@ const MoveHand: React.FC<MoveHandProps> = ({
       aria-label={ariaLabel}
       tabIndex={0}
     >
-      <MoveHandIcon width={width} height={height} alt="move hand icon" />
+      <img src={MoveHandIcon} alt="move hand icon" />
     </div>
   );
 };

@@ -1,4 +1,9 @@
 .ds-makersun-dozen-move-hand-container {
     display: flex;
-    // SCSS Styles
+     width: 40px;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
 }
