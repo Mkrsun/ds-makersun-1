@@ -1,12 +1,12 @@
 import './App.css';
 import { useState } from 'react';
-import { TaskHome, Greeting, Tabs, TaskList } from '@ds-makersun/dozen';
-
-// type Task = {
-//   id?: string;
-//   label: string;
-//   state: 'new' | 'active' | 'completed' | string;
-// };
+import {
+  Greeting,
+  Tabs,
+  TaskList,
+  MoveHand,
+  CompleteTasks,
+} from '@ds-makersun/dozen';
 
 const tasks = [
   {
@@ -30,14 +30,12 @@ function App() {
   const [dragEnabled, setDragEnabled] = useState(false);
   return (
     <div>
-      <TaskHome
-        label="Llamar a Lucas Urbina para coordinar Música"
-        onSwipeComplete={() => {
-          console.log('swipe complete!!');
-          alert('swipe completed!');
-        }}
-      />
       <Greeting label="Bienvenido 👋 Manuel Martínez" width={200} />
+
+      <div style={{ padding: '2rem' }} />
+
+      <MoveHand />
+      <CompleteTasks />
 
       <div style={{ padding: '2rem' }} />
 

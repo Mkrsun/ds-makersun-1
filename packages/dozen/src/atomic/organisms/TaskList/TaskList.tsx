@@ -37,7 +37,7 @@ const TaskList: React.FC<TaskListProps> = ({
   useEffect(() => {
     const newPositionPerIndex =
       orderedTasks?.map(
-        (task) => (refs[task.id]?.clientHeight ?? 20) / 2 - 10
+        (task) => (refs[task.id]?.clientHeight ?? 20) / 2 - 20
       ) ?? [];
     setPositionPerIndex(newPositionPerIndex);
   }, [refs, orderedTasks]);

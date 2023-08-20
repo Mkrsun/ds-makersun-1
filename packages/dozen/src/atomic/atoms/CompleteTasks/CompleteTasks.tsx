@@ -1,14 +1,18 @@
 import './CompleteTasks.scss';
-import CompleteTasksIcon from './completeTaskIcon.png';
+import CompleteTaskSvg from './completeTaskIcon.png';
 
 export interface CompleteTasksProps {
   className?: string;
   ariaLabel?: string;
+  width?: number;
+  height?: number;
 }
 
 const CompleteTasks: React.FC<CompleteTasksProps> = ({
   className = '',
   ariaLabel,
+  width = 24,
+  height = 24,
 }) => {
   return (
     <div
@@ -17,7 +21,7 @@ const CompleteTasks: React.FC<CompleteTasksProps> = ({
       aria-label={ariaLabel}
       tabIndex={0}
     >
-      <img src={CompleteTasksIcon} alt="Complete task icon" />
+      <CompleteTaskSvg width={width} height={height} alt="Complete task icon" />
     </div>
   );
 };
