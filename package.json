@@ -34,7 +34,7 @@
     "start": "react-app-rewired  -r tsconfig-paths/register start",
     "start:dev": "PORT=4000 yarn workspace @ds-makersun/playground start",
     "dev": "concurrently \"yarn workspace @ds-makersun/dozen dev\" \"yarn workspace @ds-makersun/manaier dev\" \"PORT=4000 yarn workspace @ds-makersun/playground start\"",
-    "build": "react-app-rewired build",
+    "build": "yarn workspace @ds-makersun/dozen build && yarn workspace @ds-makersun/manaier build",
     "test": "jest",
     "commit": "yarn lint && yarn git-cz",
     "eject": "react-scripts eject",

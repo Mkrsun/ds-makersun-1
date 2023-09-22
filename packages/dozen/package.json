@@ -24,7 +24,7 @@
     "build:sass": "yarn sass src:lib",
     "build:code:old": "yarn tsc --build tsconfig.json",
     "build:code": "yarn rollup -c",
-    "build:all": "yarn clean && yarn build:sass && yarn build:code",
+    "build": "yarn clean && yarn build:sass && yarn build:code",
     "build:sass:flow": "chokidar 'src/**/*.scss' -c 'sass src:lib'",
     "build:code:flow": "yarn rollup -c",
     "build:all:flow": "yarn clean && yarn build:sass:flow && yarn build:code:flow",

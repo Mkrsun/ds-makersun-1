@@ -15,8 +15,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf lib && tsc --build tsconfig.json && yarn compile-scss",
-    "dev": "concurrently \"tsc --build tsconfig.json --watch\" \"compile-scss\"",
+    "clean": "rm -rf lib",
+    "build:sass": "yarn sass src:lib",
+    "build:code": "yarn rollup -c",
+    "build": "yarn clean && yarn build:sass && yarn build:code",
     "compile-scss": "chokidar 'src/**/*.scss' -c 'node-sass src -o lib --recursive'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
